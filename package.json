@@ -4,7 +4,8 @@
   "description": "Small backend API project",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "watch": "jest --verbose --watchAll"
   },
   "repository": {
     "type": "git",
