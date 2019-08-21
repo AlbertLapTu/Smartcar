@@ -11,5 +11,13 @@ module.exports = {
     Promise.resolve({
       data: vehicle1235
     })
+  ),
+  getInvalidVehicle: jest.fn(id =>
+    Promise.resolve({
+      data: {
+        status: '404',
+        reason: `Vehicle id: ${id} not found.`
+      }
+    })
   )
 };
