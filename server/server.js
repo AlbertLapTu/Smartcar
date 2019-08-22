@@ -1,7 +1,15 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const vehicleRoutes = require('./api/vehicles/vehicles.routes');
+require('./middleware/appMiddleware')(app);
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.use('/vehicles/:id', vehicleRoutes);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+//Set-up global error handling
+// app.use('/', (req, res) => {
+//   console.log(res.send('Hello world!'));
+// });
+
+/** Remember to handle your errors or else express won't know what to do */
+
+module.exports = app;
