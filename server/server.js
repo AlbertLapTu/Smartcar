@@ -5,6 +5,10 @@ require('./middleware/appMiddleware')(app);
 
 app.use('/vehicles/', vehicleRoutes);
 
+app.use('/', (req, res) => {
+  res.send('Global error message');
+});
+
 //Set-up global error handling
 // app.use('/', (req, res) => {
 //   console.log(res.send('Hello world!'));
