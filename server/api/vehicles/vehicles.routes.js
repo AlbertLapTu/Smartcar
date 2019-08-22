@@ -1,41 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const { getVehicleInfoFromGm } = require('./vehicles.controllers');
+const {
+  getVehicleInfoFromGm,
+  getVehicleDoorInfo,
+  getFuelRange,
+  getBatteryRange,
+  startOrStopEngine
+} = require('./vehicles.controllers');
 
-router.post('/', (req, res, next) => {
-  const id = req.body.id;
+router.get('/:id', (req, res, next) => {
+  const { id } = req.params;
   getVehicleInfoFromGm(req, res, next, id);
 });
 
+router.get('/:id/doors', (req, res) => {
+  const { id } = req.params;
+  getVehicleDoorInfo(req, res, next, id);
+});
+
+router.get('/:id/fuel', (req, res) => {
+  const { id } = req.params;
+  getFuelRange(req, res, next, id);
+});
+
+router.get('/:id/battery', (req, res) => {
+  const { id } = req.params;
+  getBatteryRange(req, res, next, id);
+});
+
+router.post('/vehicles/:id/engine', (req, res) => {
+  const { id } = req.params;
+  startOrStopEngine(req, res, next, id);
+});
+
 module.exports = router;
-
-// //What we have here is /api/vehicles/:id
-// router
-//   .route('/doors')
-//   .get(vehiclesControllers.controller)
-//   .post();
-
-// router.route('/fuel');
-
-// router.route('/battery');
-
-// router.route('/engine');
-
-// //Vehicle info
-// app.get('/vehicles/:id', (req, res) => {});
-
-// //Security / unlock
-// app.get('/vehicles/:id/doors', (req, res) => {});
-
-// //Fuel range
-// app.get('/vehicles/:id/fuel', (req, res) => {});
-
-// //Battery range
-// app.get('/vehicles/:id/battery', (req, res) => {});
-
-// //Engine info
-// app.post('/vehicles/:id/engine', (req, res) => {});
-
-// */
-
-// export default router;
