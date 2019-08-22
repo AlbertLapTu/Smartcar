@@ -13,24 +13,25 @@ router.get('/:id', (req, res, next) => {
   getVehicleInfoFromGm(req, res, next, id);
 });
 
-router.get('/:id/doors', (req, res) => {
+router.get('/:id/doors', (req, res, next) => {
   const { id } = req.params;
   getVehicleDoorInfo(req, res, next, id);
 });
 
-router.get('/:id/fuel', (req, res) => {
+router.get('/:id/fuel', (req, res, next) => {
   const { id } = req.params;
   getFuelRange(req, res, next, id);
 });
 
-router.get('/:id/battery', (req, res) => {
+router.get('/:id/battery', (req, res, next) => {
   const { id } = req.params;
   getBatteryRange(req, res, next, id);
 });
 
-router.post('/vehicles/:id/engine', (req, res) => {
+router.post('/:id/engine', (req, res, next) => {
   const { id } = req.params;
-  startOrStopEngine(req, res, next, id);
+  const { action } = req.body;
+  startOrStopEngine(req, res, next, id, action);
 });
 
 module.exports = router;
