@@ -1,20 +1,18 @@
 const axios = require('axios');
-// const { getVehicleInfo, getSecurityStatus, getEnergy, actionEngine } = require('./requestOptions');
+const {
+  getVehicleInfoService,
+  getSecurityStatusService,
+  getEnergyService,
+  actionEngineService
+} = require('./requestOptions');
+const {
+  filterDoors,
+  filterByEnergySource,
+  engineMessagePayload
+} = require('../../lib/payloadFormattingHelpers');
 
 const getVehicleInfoFromGm = (req, res, next, vehicleId) => {
-  let options = {
-    method: 'POST',
-    url: 'http://gmapi.azurewebsites.net/getVehicleInfoService/',
-    headers: {
-      'content-type': 'application/json'
-    },
-    data: {
-      id: vehicleId,
-      responseType: 'JSON'
-    }
-  };
-
-  axios(options)
+  axios(getVehicleInfoService(vehicleId))
     .then(response => {
       if (response.data.status === '404') {
         res.status(response.data.status);
@@ -32,64 +30,59 @@ const getVehicleInfoFromGm = (req, res, next, vehicleId) => {
       }
     })
     .catch(err => console.error(err));
-  //Why console.error
 };
 
 const getVehicleDoorInfo = (req, res, next, id) => {
-  let options = {
-    method: 'POST',
-    url: 'http://gmapi.azurewebsites.net/getSecurityStatusService',
-    headers: {
-      'content-type': 'application/json'
-    },
-    data: {
-      id: id,
-      responseType: 'JSON'
-    }
-  };
+  axios(getSecurityStatusService(id))
+    .then(response => {
+      if (response.data.status === '404') {
+        res.status(response.data.status);
+        return next();
+      } else {
+        let payload = filterDoors(response);
+        return res.send(payload);
+      }
+    })
+    .catch(err => console.error(err));
 };
 
 const getFuelRange = (req, res, next, id) => {
-  let options = {
-    method: 'POST',
-    url: 'http://gmapi.azurewebsites.net/getEnergyService',
-    headers: {
-      'content-type': 'application/json'
-    },
-    data: {
-      id: id,
-      responseType: 'JSON'
-    }
-  };
+  axios(getEnergyService(id))
+    .then(response => {
+      if (response.data.status === '404') {
+        res.status(response.data.status);
+        return next();
+      } else {
+        return res.send(filterByEnergySource(response, 'tankLevel'));
+      }
+    })
+    .catch(err => console.error(err));
 };
 
 const getBatteryRange = (req, res, next, id) => {
-  let options = {
-    method: 'POST',
-    url: 'http://gmapi.azurewebsites.net/getEnergyService',
-    headers: {
-      'content-type': 'application/json'
-    },
-    data: {
-      id: id,
-      responseType: 'JSON'
-    }
-  };
+  axios(getEnergyService(id))
+    .then(response => {
+      if (response.data.status === '404') {
+        res.status(response.data.status);
+        return next();
+      } else {
+        return res.send(filterByEnergySource(response, 'batteryLevel'));
+      }
+    })
+    .catch(err => console.error(err));
 };
 
-const startOrStopEngine = (req, res, next, id) => {
-  let options = {
-    method: 'POST',
-    url: 'http://gmapi.azurewebsites.net/actionEngineService',
-    headers: {
-      'content-type': 'application/json'
-    },
-    data: {
-      id: id,
-      command: command,
-      responseType: 'JSON'
-    }
-  };
+const startOrStopEngine = (req, res, next, id, action) => {
+  axios(actionEngineService(id, action))
+    .then(response => {
+      if (response.data.status === '404') {
+        res.status(response.data.status);
+        return next();
+      } else {
+        return res.send(engineMessagePayload(response));
+      }
+    })
+    .catch(err => console.error(err));
 };
 
 module.exports = {
