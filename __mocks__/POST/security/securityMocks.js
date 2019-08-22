@@ -1,5 +1,5 @@
-const sedan = require('./vehicle1234-sedan.response.json');
-const coupe = require('./vehicle1235-coupe.response.json');
+const sedan = require('./vehicle1234-sedan-security.response.json');
+const coupe = require('./vehicle1235-coupe-security.response.json');
 
 module.exports = {
   getCoupeSecurityInfo: jest.fn(() =>
