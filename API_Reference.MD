@@ -18,23 +18,71 @@ Please note that the only vehicle IDs which will return any kind of valid respon
 | GET       | /vehicles/:id/battery |
 | POST      | /vehicles/:id/doors   |
 
-### /vehicles/:id
+### Sample requests
 
 <!-- Add examples of a GET request in the code. Add example of a response in code!-->
 
-Sample request, assuming you are working within a localhost environment
+Sample requests:
 
 ```
 Using cURL:
 
-$ curl http://gmapi.azurewebsites.net/getVehicleInfoService
+$ curl http://localhost:3000/vehicles/
        -X POST
        -H 'Content-Type: application/json'
        -d '{"id": "1234", "responseType": "JSON"}'
 
 ```
 
-| Description | URL Structure | Params | Payload | Success | Code |
+```
+Using localhost environment
+
+http://localhost.com/:3000/vehicles/1234
+```
+
+Sample response:
+
+```
+{
+  "vin": "1213231",
+  "color": "Metallic Silver",
+  "doorCount": 4,
+  "driveTrain": "v8"
+}
+```
+
+\*\*Note: If you plan on not utilizing the CLI/Postman app and only wish to test endpoints through the browser, simply replace
+values with a `:` preceding them to test while ensuring you have a local server up and running. (Ex: http://localhost:3000/vehicles/:id should be replaced with http://localhost:3000/vehicles/1234
+
+### /vehicles/:id
+
+| Description             | URL Structure | Params | Payload | Status Code | Error |
+| ----------------------- | ------------- | ------ | ------- | ----------- | ----- |
+| Get vehicle information | /vehicles/:id | None   | None    | 200 - OK    |       |
+
+### /vehicles/:id/doors
+
+| Description            | URL Structure       | Params | Payload | Status Code | Error |
+| ---------------------- | ------------------- | ------ | ------- | ----------- | ----- |
+| Get door security info | /vehicles/:id/doors | None   | None    | 200 - OK    |       |
+
+### /vehicles/:id/fuel
+
+| Description                | URL Structure      | Params | Payload | Status Code | Error |
+| -------------------------- | ------------------ | ------ | ------- | ----------- | ----- |
+| Get fuel percentage levels | /vehicles/:id/fuel | None   | None    | 200 - OK    |       |
+
+### /vehicles/:id/battery
+
+| Description            | URL Structure         | Params | Payload | Status Code | Error |
+| ---------------------- | --------------------- | ------ | ------- | ----------- | ----- |
+| Get battery percentage | /vehicles/:id/battery | None   | None    | 200 - OK    |       |
+
+### /vehicles/:id/engine
+
+| Description       | URL Structure        | Params | Payload | Status Code | Error |
+| ----------------- | -------------------- | ------ | ------- | ----------- | ----- |
+| Start/stop engine | /vehicles/:id/engine | None   | None    | 200 - OK    |       |
 
 Title - the name of your API call (ex. Show All users) - use verbs that match request type and plurality - Any additional info such as description
 URL - URL structure (path only, no root URL)
