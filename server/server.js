@@ -3,7 +3,7 @@ const app = express();
 const vehicleRoutes = require('./api/vehicles/vehicles.routes');
 require('./middleware/appMiddleware')(app);
 
-app.use('/vehicles/:id', vehicleRoutes);
+app.use('/vehicles/', vehicleRoutes);
 
 //Set-up global error handling
 // app.use('/', (req, res) => {
