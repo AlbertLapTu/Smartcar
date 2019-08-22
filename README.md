@@ -28,7 +28,7 @@ To install project dependencies, ensure you are at the root directory of the pro
 
 Open up your terminal and type:
 
-> npm i
+> npm install
 
 ### Tests
 
