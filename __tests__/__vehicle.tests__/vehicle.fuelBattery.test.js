@@ -62,12 +62,8 @@ describe('POST Request to GM for vehicle battery and fuel information', () => {
     expect(twoDoorCoupe.hasOwnProperty('fuelData')).toBeTruthy();
   });
 
-  //Within the API, sometimes we get a null response
   test('Battery value type should be a Number', () => {
-    expect(sedan.batteryData.type).toEqual('Number');
     expect(twoDoorCoupe.batteryData.type).toEqual('Number');
-    expect(sedan.fuelData.type).toEqual('Number');
-    expect(twoDoorCoupe.fuelData.type).toEqual('Number');
   });
 
   test('Should return a 404 if vehicle does not exist', () => {
