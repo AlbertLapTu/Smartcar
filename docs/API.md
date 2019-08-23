@@ -138,8 +138,3 @@ values with a `:` preceding them to test while ensuring you have a local server 
 {
 "status": "success|error"
 }
-
-Screenshots
-
-Errors
-What are some of the error messages

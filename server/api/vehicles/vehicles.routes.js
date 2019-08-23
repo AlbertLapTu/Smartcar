@@ -9,15 +9,6 @@ const {
   startOrStopEngine
 } = require('./vehicles.controllers');
 
-/*
-
-TODO: 
-
-[x] - Handle errors if passed an invalid parameter
-[] - Handle error if querying for an invalid response object?
-
-*/
-
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
   if (!id || !handleInvalidId(id)) {
