@@ -1,3 +1,15 @@
+const getVehiclePayloadFormat = responseObject => {
+  const { vin, color, fourDoorSedan, driveTrain } = responseObject.data.data;
+
+  let payload = {
+    vin: vin.value,
+    color: color.value,
+    doorCount: fourDoorSedan.value === 'True' ? 4 : 2,
+    driveTrain: driveTrain.value
+  };
+  return payload;
+};
+
 const filterDoors = responseObject => {
   return responseObject.data.data.doors.values.map(door => {
     return {
@@ -33,6 +45,7 @@ const engineMessagePayload = responseObject => {
 };
 
 module.exports = {
+  getVehiclePayloadFormat,
   filterDoors,
   filterByEnergySource,
   formatEngineActionPayload,

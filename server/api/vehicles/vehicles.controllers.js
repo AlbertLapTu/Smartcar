@@ -8,7 +8,8 @@ const {
 const {
   filterDoors,
   filterByEnergySource,
-  engineMessagePayload
+  engineMessagePayload,
+  getVehiclePayloadFormat
 } = require('../../lib/payloadFormattingHelpers');
 
 const getVehicleInfoFromGm = (req, res, next, vehicleId) => {
@@ -18,18 +19,10 @@ const getVehicleInfoFromGm = (req, res, next, vehicleId) => {
         res.status(response.data.status);
         return next();
       } else {
-        const { vin, color, fourDoorSedan, driveTrain } = response.data.data;
-
-        let payload = {
-          vin: vin.value,
-          color: color.value,
-          doorCount: fourDoorSedan.value === 'True' ? 4 : 2,
-          driveTrain: driveTrain.value
-        };
-        return res.send(payload);
+        res.send(getVehiclePayloadFormat(response));
       }
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 };
 
 const getVehicleDoorInfo = (req, res, next, id) => {
@@ -43,7 +36,7 @@ const getVehicleDoorInfo = (req, res, next, id) => {
         return res.send(payload);
       }
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 };
 
 const getFuelRange = (req, res, next, id) => {
@@ -56,7 +49,7 @@ const getFuelRange = (req, res, next, id) => {
         return res.send(filterByEnergySource(response, 'tankLevel'));
       }
     })
-    .catch(err => console.error(err));
+    .catch(err => next(err));
 };
 
 const getBatteryRange = (req, res, next, id) => {
@@ -69,7 +62,7 @@ const getBatteryRange = (req, res, next, id) => {
         return res.send(filterByEnergySource(response, 'batteryLevel'));
       }
     })
-    .catch(err => console.error(err));
+    .catch(next(err));
 };
 
 const startOrStopEngine = (req, res, next, id, action) => {
@@ -82,7 +75,7 @@ const startOrStopEngine = (req, res, next, id, action) => {
         return res.send(engineMessagePayload(response));
       }
     })
-    .catch(err => console.error(err));
+    .catch(next(err));
 };
 
 module.exports = {
