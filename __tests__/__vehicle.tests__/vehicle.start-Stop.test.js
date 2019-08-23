@@ -22,7 +22,6 @@ describe('POST request to Lock/Unlock GM vehicle', () => {
     postMock
       .startCar()
       .then(res => {
-        console.log(res, 'postmock startCar');
         startCarResponse = res;
       })
       .catch(err => {
@@ -32,7 +31,6 @@ describe('POST request to Lock/Unlock GM vehicle', () => {
     postMock
       .stopCar()
       .then(res => {
-        console.log(res, 'postMock stop car');
         stopCarResponse = res;
       })
       .catch(err => {
