@@ -7,7 +7,8 @@ app.use('/vehicles/', vehicleRoutes);
 
 app.use((err, req, res, next) => {
   res.status(404).json({
-    error: 'Current API endpoint does not exist'
+    error: 'Invalid request. Check console messages for additional error detail',
+    statusCode: err.httpStatusCode
   });
 });
 
