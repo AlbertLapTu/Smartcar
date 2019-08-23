@@ -61,11 +61,45 @@ values with a `:` preceding them to test while ensuring you have a local server 
 | ----------------------- | ------------- | ------ | ------- | ----------- | ----- |
 | Get vehicle information | /vehicles/:id | None   | None    | 200 - OK    | 404   |
 
+**Example response**
+
+```
+{
+  "vin": "1213231",
+  "color": "Metallic Silver",
+  "doorCount": 4,
+  "driveTrain": "v8"
+}
+```
+
 ### /vehicles/:id/doors
 
 | Description            | URL Structure       | Params | Payload | Status Code | Error |
 | ---------------------- | ------------------- | ------ | ------- | ----------- | ----- |
 | Get door security info | /vehicles/:id/doors | None   | None    | 200 - OK    | 404   |
+
+**Example response**
+
+```
+[
+  {
+    "location": "frontLeft",
+    "locked": true
+  },
+  {
+    "location": "frontRight",
+    "locked": true
+  },
+  {
+    "location": "backLeft",
+    "locked": true
+  },
+  {
+    "location": "backRight",
+    "locked": false
+  }
+]
+```
 
 ### /vehicles/:id/fuel
 
@@ -73,11 +107,27 @@ values with a `:` preceding them to test while ensuring you have a local server 
 | -------------------------- | ------------------ | ------ | ------- | ----------- | ----- |
 | Get fuel percentage levels | /vehicles/:id/fuel | None   | None    | 200 - OK    | 404   |
 
+**Example response**
+
+```
+{
+  "percent": 30.2
+}
+```
+
 ### /vehicles/:id/battery
 
 | Description            | URL Structure         | Params | Payload | Status Code | Error |
 | ---------------------- | --------------------- | ------ | ------- | ----------- | ----- |
 | Get battery percentage | /vehicles/:id/battery | None   | None    | 200 - OK    | 404   |
+
+**Example response**
+
+```
+{
+  "percent": 50.3
+}
+```
 
 ### /vehicles/:id/engine
 
@@ -85,13 +135,11 @@ values with a `:` preceding them to test while ensuring you have a local server 
 | ----------------- | -------------------- | ------ | ------------------------------ | ----------- | ----- |
 | Start/stop engine | /vehicles/:id/engine | None   | { "action": "START" / "STOP" } | 201 - OK    |       |
 
+{
+"status": "success|error"
+}
+
 Screenshots
 
 Errors
 What are some of the error messages
-
-Resources
-Other things to look at
-
-Getting started
-Dependencies for project
