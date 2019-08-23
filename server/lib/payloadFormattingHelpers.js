@@ -20,7 +20,7 @@ const filterDoors = responseObject => {
 };
 
 const filterByEnergySource = (responseObject, energySource) => {
-  let energyValue = parseInt(responseObject.data.data[energySource].value);
+  let energyValue = Number(responseObject.data.data[energySource].value);
   let roundedEnergyValue = Math.round(energyValue * 10) / 10;
 
   return { percent: roundedEnergyValue };
