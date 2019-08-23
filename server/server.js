@@ -5,15 +5,10 @@ require('./middleware/appMiddleware')(app);
 
 app.use('/vehicles/', vehicleRoutes);
 
-app.use('/', (req, res) => {
-  res.send('Global error message');
+app.use((err, req, res, next) => {
+  res.status(404).json({
+    error: 'Current API endpoint does not exist'
+  });
 });
-
-//Set-up global error handling
-// app.use('/', (req, res) => {
-//   console.log(res.send('Hello world!'));
-// });
-
-/** Remember to handle your errors or else express won't know what to do */
 
 module.exports = app;
