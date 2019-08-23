@@ -46,7 +46,7 @@ describe('Filter by tank level function', () => {
     const mockCoupeTankLevel = Math.round(10.2 * 10) / 10;
     const mockSedanTankLevel = Math.round(24.68 * 10) / 10;
     expect(mockCoupeTankLevel).toEqual(coupeTankLevelResponse.percent);
-    expect(mockCoupeTankLevel).toEqual(sedanTankLevelResponse.percent);
+    expect(mockSedanTankLevel).toEqual(sedanTankLevelResponse.percent);
   });
   test('tankLevel value should not have one than digit after the decimal', () => {
     let sedanDecimalDigits = sedanTankLevelResponse.percent
@@ -61,8 +61,8 @@ describe('Filter by tank level function', () => {
     expect(Number(coupeDecimalDigits)).toBeLessThanOrEqual(9);
   });
   test('tankLevel value should be of type string', () => {
-    expect(typeof sedan.data.data.tankLevel).toBe('string');
-    expect(typeof coupe.data.data.tankLevel).toBe('string');
+    expect(typeof sedan.data.data.tankLevel.value).toBe('string');
+    expect(typeof coupe.data.data.tankLevel.value).toBe('string');
   });
   test('There should only be a percent key within tank level response', () => {
     let sedanKeys = Object.keys(sedanTankLevelResponse);
