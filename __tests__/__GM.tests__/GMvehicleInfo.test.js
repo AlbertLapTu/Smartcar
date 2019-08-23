@@ -7,7 +7,6 @@ describe('POST Request to GM for general Vehicle information', () => {
   let invalidVehicle1236 = null;
   let invalidVehicle1999 = null;
 
-  //TODO: Check if throwing an error returns out
   beforeAll(() => {
     postMock
       .getVehicleInfo1234()

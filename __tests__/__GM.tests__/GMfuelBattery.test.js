@@ -1,17 +1,11 @@
 const postMock = require('../../__mocks__/POST/fuel-Battery/fuelBatteryMocks');
 const invalidMock = require('../../__mocks__/utils/globalMocks');
 
-//TODO: PROMISES ARE THROWING ERRORS FOR SOME REASON
-//TRY REQUIRING THE FILE INTO A VARIABLE
-describe('POST Request to GM for vehical battery and fuel information', () => {
+describe('POST Request to GM for vehicle battery and fuel information', () => {
   let sedan = null;
   let twoDoorCoupe = null;
   let invalidVehicle1111 = null;
   let invalidVehicle1555 = null;
-  let sedanTankLevel = null;
-  let sedanBatteryLevel = null;
-  let twoDoorCoupeBatteryLevel = null;
-  let twoDoorCoupeTankLevel = null;
 
   beforeAll(() => {
     postMock
@@ -58,5 +52,30 @@ describe('POST Request to GM for vehical battery and fuel information', () => {
   test('Should return a status code 200 on success', () => {
     expect(sedan.status).toBe('200');
     expect(twoDoorCoupe.status).toBe('200');
+  });
+  test('Should contain a battery data key', () => {
+    expect(sedan.hasOwnProperty('batteryData')).toBeTruthy();
+    expect(twoDoorCoupe.hasOwnProperty('batteryData')).toBeTruthy();
+  });
+  test('Should contain a fuelData property', () => {
+    expect(sedan.hasOwnProperty('fuelData')).toBeTruthy();
+    expect(twoDoorCoupe.hasOwnProperty('fuelData')).toBeTruthy();
+  });
+
+  //Within the API, sometimes we get a null response
+  test('Battery value type should be a Number', () => {
+    expect(sedan.batteryData.type).toEqual('Number');
+    expect(twoDoorCoupe.batteryData.type).toEqual('Number');
+    expect(sedan.fuelData.type).toEqual('Number');
+    expect(twoDoorCoupe.fuelData.type).toEqual('Number');
+  });
+
+  test('Should return a 404 if vehicle does not exist', () => {
+    expect(invalidVehicle1111.data.status).toEqual('404');
+    expect(invalidVehicle1555.data.status).toEqual('404');
+  });
+  test('Should have a reason within the error response message', () => {
+    expect(invalidVehicle1111.data.hasOwnProperty('reason')).toBeTruthy();
+    expect(invalidVehicle1555.data.hasOwnProperty('reason')).toBeTruthy();
   });
 });

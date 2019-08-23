@@ -1,6 +1,18 @@
 const postMock = require('../../__mocks__/POST/start-Stop/start-Stop.mocks');
 const invalidMock = require('../../__mocks__/utils/globalMocks');
 
+const stopRequest = {
+  id: '1234',
+  command: 'STOP_VEHICLE',
+  responseType: 'JSON'
+};
+
+const startRequest = {
+  id: '1234',
+  command: 'START_VEHICLE',
+  responseType: 'JSON'
+};
+
 describe('POST request to Lock/Unlock GM vehicle', () => {
   let startCarResponse = null;
   let stopCarResponse = null;
@@ -10,19 +22,21 @@ describe('POST request to Lock/Unlock GM vehicle', () => {
     postMock
       .startCar()
       .then(res => {
+        console.log(res, 'postmock startCar');
         startCarResponse = res;
       })
       .catch(err => {
-        throw new Error('Unable to start car');
+        console.error(err);
       });
 
     postMock
       .stopCar()
       .then(res => {
+        console.log(res, 'postMock stop car');
         stopCarResponse = res;
       })
       .catch(err => {
-        throw new Error('Unable to stop car');
+        console.error(err);
       });
 
     invalidMock
@@ -31,11 +45,14 @@ describe('POST request to Lock/Unlock GM vehicle', () => {
         invalidVehicle = res;
       })
       .catch(err => {
-        throw new Error('Unabel to receive invalid vehicle data');
+        console.error(err);
       });
   });
 
   test('Car should be in a stopped state when turning on, then off', () => {
-    const mockStartCar = jest.fn();
+    const mockStartCar = jest.fn().mockReturnValueOnce('EXECUTED');
+    const mockStopCar = jest.fn().mockReturnValueOnce('FAILED');
+    expect(mockStartCar()).toBe(startCarResponse.actionResult.status);
+    expect(mockStopCar()).toBe(stopCarResponse.actionResult.status);
   });
 });
