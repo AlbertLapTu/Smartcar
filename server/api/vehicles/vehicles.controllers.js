@@ -22,7 +22,7 @@ const getVehicleInfoFromGm = (req, res, next, vehicleId) => {
         res.send(getVehiclePayloadFormat(response));
       }
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 const getVehicleDoorInfo = (req, res, next, id) => {
@@ -36,7 +36,7 @@ const getVehicleDoorInfo = (req, res, next, id) => {
         return res.send(payload);
       }
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 const getFuelRange = (req, res, next, id) => {
@@ -49,7 +49,7 @@ const getFuelRange = (req, res, next, id) => {
         return res.send(filterByEnergySource(response, 'tankLevel'));
       }
     })
-    .catch(err => next(err));
+    .catch(next);
 };
 
 const getBatteryRange = (req, res, next, id) => {
@@ -62,7 +62,7 @@ const getBatteryRange = (req, res, next, id) => {
         return res.send(filterByEnergySource(response, 'batteryLevel'));
       }
     })
-    .catch(next(err));
+    .catch(next);
 };
 
 const startOrStopEngine = (req, res, next, id, action) => {
@@ -75,7 +75,7 @@ const startOrStopEngine = (req, res, next, id, action) => {
         return res.send(engineMessagePayload(response));
       }
     })
-    .catch(next(err));
+    .catch(next);
 };
 
 module.exports = {
