@@ -2,7 +2,7 @@
 
 ## Available Endpoints
 
-<h2> Vehicles </h2>
+**Vehicles**
 
 The vehicles endpoint returns information about the current vehicle.
 
