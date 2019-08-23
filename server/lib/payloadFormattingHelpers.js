@@ -1,3 +1,10 @@
+/**
+ *
+ * @description: All functions below are ways to parse the GM response object into Smartcar's more
+ * readable format.
+ *
+ */
+
 const getVehiclePayloadFormat = responseObject => {
   const { vin, color, fourDoorSedan, driveTrain } = responseObject.data.data;
 
@@ -19,6 +26,7 @@ const filterDoors = responseObject => {
   });
 };
 
+/** Rounds to a single decimal place  */
 const filterByEnergySource = (responseObject, energySource) => {
   let energyValue = Number(responseObject.data.data[energySource].value);
   let roundedEnergyValue = Math.round(energyValue * 10) / 10;
@@ -27,7 +35,7 @@ const filterByEnergySource = (responseObject, energySource) => {
 };
 
 const formatEngineActionPayload = action => {
-  //reformat to all uppercase
+  //Make sure it's all uppercase
   action = action.toUpperCase();
   action = action === 'START' ? 'START_VEHICLE' : 'STOP_VEHICLE';
 
