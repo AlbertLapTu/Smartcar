@@ -30,10 +30,21 @@ Open up your terminal and type:
 
 > npm install
 
+### Running the application
+
+To start up the application, type `npm run server` to boot up the express server.
+
 ### Tests
 
-To run the test suite, first install the dependencies, then run `npm run watch` to ensure that all tests are ran, and will
-continuously run on every save event.
+To run the test suite, you can run the following commands:
+
+`npm run test` to run the test suite once.
+`npm run watch` to run the test suite once on every change.
+
+#### Built with
+
+Node / Express
+Jest / supertest test suite
 
 ### Language Support
 

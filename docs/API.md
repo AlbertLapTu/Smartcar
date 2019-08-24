@@ -138,3 +138,19 @@ values with a `:` preceding them to test while ensuring you have a local server 
 {
 "status": "success|error"
 }
+
+### Error messages
+
+[Work in progress]
+
+Currently, most errors will be logged on the console and will not be sent back to the client. Error messages
+that do get sent back to the client take on the shape of:
+
+```
+
+{
+  error: 'Invalid request. Check console messages for additional error detail',
+  statusCode: [STATUS_CODE]
+}
+
+```
